@@ -1,0 +1,45 @@
+services:
+  - type: web
+    name: ai-super-resolution-backend
+    runtime: python
+    runtimeVersion: 3.11.0
+    region: oregon
+    plan: standard
+    autoDeploy: true
+    
+    env:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_APP
+        value: backend/app.py
+      - key: PYTHONUNBUFFERED
+        value: "1"
+    
+    buildCommand: |
+      pip install -r backend/requirements.txt
+    
+    startCommand: |
+      gunicorn --worker-class sync --workers 2 --timeout 60 --bind 0.0.0.0:$PORT backend.app:app
+    
+    envVars:
+      - fromGroup: ai-super-resolution-backend
+
+  - type: web
+    name: ai-super-resolution-frontend
+    runtime: node
+    runtimeVersion: 18.17.1
+    region: oregon
+    plan: standard
+    autoDeploy: true
+    
+    buildCommand: |
+      npm ci && npm run build
+    
+    startCommand: |
+      npm start
+    
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://ai-super-resolution-backend.onrender.com
+      - key: CI
+        value: "false"

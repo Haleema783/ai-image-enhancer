@@ -6,6 +6,9 @@ import { BeatLoader } from 'react-spinners';
 import { saveAs } from 'file-saver';
 import '../styles/Enhance.css';
 
+// Get API URL from environment or fallback to localhost for development
+const API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:5000';
+
 const Enhance = () => {
   const [uploadedImage, setUploadedImage] = useState(null);
   const [enhancedImage, setEnhancedImage] = useState(null);
@@ -55,7 +58,7 @@ const Enhance = () => {
       formData.append("image", blob, fileName);
 
       // Send to Flask backend
-      const response = await fetch("http://127.0.0.1:5000/enhance", {
+      const response = await fetch(`${API_URL}/enhance`, {
         method: "POST",
         body: formData
       });
@@ -72,7 +75,7 @@ const Enhance = () => {
 
     } catch (err) {
       console.log(err);
-      setError("⚠️ Backend not connected. Make sure Flask is running on http://127.0.0.1:5000");
+      setError(`⚠️ Backend not connected. Make sure the API is running at ${API_URL}`);
     } finally {
       setLoading(false);
     }

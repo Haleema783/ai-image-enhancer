@@ -16,7 +16,24 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app)
+
+# Configure CORS for both development and production
+cors_config = {
+    "origins": [
+        "http://localhost:3000",  # Local development
+        "http://127.0.0.1:3000",  # Local development (IP)
+        "https://ai-super-resolution-frontend.onrender.com",  # Render production
+        "https://ai-super-resolution.vercel.app",  # Vercel deployment
+        "https://*.vercel.app",  # All Vercel deployments
+        "https://*.onrender.com",  # All Render deployments
+    ]
+}
+
+CORS(app, resources={
+    r"/enhance": {"origins": cors_config["origins"]},
+    r"/health": {"origins": cors_config["origins"]},
+    r"/model-info": {"origins": cors_config["origins"]},
+})
 
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp'}
