@@ -1,0 +1,331 @@
+.pricing-page {
+  min-height: calc(100vh - 60px);
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(15, 15, 30, 0.8) 0%, rgba(26, 26, 46, 0.8) 100%);
+}
+
+.pricing-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pricing-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.pricing-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #64b5f6 0%, #81c784 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 1rem 0;
+}
+
+.pricing-subtitle {
+  font-size: 1.1rem;
+  color: #b0b0c0;
+  margin: 0;
+}
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.pricing-card {
+  background: rgba(100, 181, 246, 0.05);
+  border: 1px solid rgba(100, 181, 246, 0.1);
+  border-radius: 16px;
+  padding: 2.5rem;
+  position: relative;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card:hover {
+  background: rgba(100, 181, 246, 0.08);
+  border-color: rgba(100, 181, 246, 0.3);
+  box-shadow: 0 12px 32px rgba(100, 181, 246, 0.15);
+  transform: translateY(-8px);
+}
+
+.pricing-card.highlighted {
+  background: linear-gradient(135deg, rgba(100, 181, 246, 0.1) 0%, rgba(129, 199, 132, 0.1) 100%);
+  border: 2px solid rgba(100, 181, 246, 0.3);
+  transform: scale(1.02);
+}
+
+.pricing-card.highlighted:hover {
+  transform: translateY(-12px) scale(1.02);
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #64b5f6 0%, #81c784 100%);
+  color: #0f0f1e;
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.price-section {
+  margin-bottom: 1.5rem;
+}
+
+.plan-price {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #64b5f6 0%, #81c784 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.plan-description {
+  color: #b0b0c0;
+  font-size: 0.95rem;
+  margin: 0 0 2rem 0;
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem auto;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.features-list li {
+  color: #b0b0c0;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cta-button {
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: 2px solid transparent;
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #64b5f6 0%, #81c784 100%);
+  color: #0f0f1e;
+  box-shadow: 0 8px 16px rgba(100, 181, 246, 0.3);
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(100, 181, 246, 0.4);
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: #64b5f6;
+  border: 2px solid #64b5f6;
+}
+
+.cta-button.secondary:hover {
+  background: rgba(100, 181, 246, 0.1);
+  transform: translateY(-2px);
+}
+
+/* FAQ Section */
+.faq-section {
+  margin: 4rem 0;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.faq-header h2 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #64b5f6 0%, #81c784 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.5rem 0;
+}
+
+.faq-header p {
+  font-size: 1.1rem;
+  color: #b0b0c0;
+  margin: 0;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.faq-item {
+  background: rgba(100, 181, 246, 0.05);
+  border: 1px solid rgba(100, 181, 246, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  background: rgba(100, 181, 246, 0.08);
+  border-color: rgba(100, 181, 246, 0.3);
+  transform: translateY(-5px);
+}
+
+.faq-item h3 {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  margin: 0 0 0.8rem 0;
+}
+
+.faq-item p {
+  color: #b0b0c0;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Final CTA Section */
+.final-cta {
+  background: linear-gradient(135deg, rgba(100, 181, 246, 0.1) 0%, rgba(129, 199, 132, 0.1) 100%);
+  border: 1px solid rgba(100, 181, 246, 0.2);
+  border-radius: 16px;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.final-cta h2 {
+  font-size: 2rem;
+  color: #e0e0e0;
+  margin: 0 0 1rem 0;
+}
+
+.final-cta p {
+  font-size: 1.1rem;
+  color: #b0b0c0;
+  margin: 0 0 2rem 0;
+}
+
+.final-cta .cta-button {
+  padding: 1.2rem 3rem;
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pricing-page {
+    padding: 2rem 1rem;
+  }
+
+  .pricing-title {
+    font-size: 1.8rem;
+  }
+
+  .pricing-grid {
+    gap: 1.5rem;
+  }
+
+  .pricing-card {
+    padding: 2rem;
+  }
+
+  .pricing-card.highlighted {
+    transform: scale(1);
+  }
+
+  .pricing-card.highlighted:hover {
+    transform: translateY(-8px) scale(1);
+  }
+
+  .faq-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .final-cta {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .final-cta h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .pricing-title {
+    font-size: 1.5rem;
+  }
+
+  .pricing-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .plan-name {
+    font-size: 1.2rem;
+  }
+
+  .plan-price {
+    font-size: 1.5rem;
+  }
+
+  .pricing-card,
+  .faq-item {
+    padding: 1.5rem;
+  }
+
+  .features-list li {
+    font-size: 0.9rem;
+  }
+
+  .cta-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .final-cta .cta-button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+  }
+}
