@@ -10,6 +10,7 @@ import warnings
 from werkzeug.utils import secure_filename
 from pathlib import Path
 import logging
+import gc  # Garbage collection
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -54,6 +55,22 @@ upsampler_model = None
 device = None
 
 warnings.filterwarnings('ignore')
+
+
+# Cleanup after each request to prevent memory leaks
+@app.teardown_appcontext
+def cleanup_memory(exception=None):
+    """Clean up memory after each request"""
+    try:
+        # Force garbage collection
+        gc.collect()
+        
+        # Clear PyTorch cache if using GPU
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+    except Exception as e:
+        logger.debug(f"Memory cleanup note: {e}")
+
 
 
 def get_device():
@@ -234,6 +251,7 @@ def fallback_upsampling(image_array):
     """
     Fallback image upsampling using OpenCV Lanczos interpolation
     Provides high-quality 4x upsampling when Real-ESRGAN model is unavailable
+    Memory-efficient version
     
     Args:
         image_array: RGB image array (uint8)
@@ -246,6 +264,13 @@ def fallback_upsampling(image_array):
         height, width = image_array.shape[:2]
         new_height, new_width = height * 4, width * 4
         
+        # Check if output size is reasonable (max 8000x8000)
+        if new_height > 8000 or new_width > 8000:
+            logger.warning(f"Image too large for 4x upsampling: {new_height}x{new_width}")
+            # Fallback to 2x upsampling instead
+            new_height, new_width = height * 2, width * 2
+            logger.info(f"Using 2x upsampling instead: {new_height}x{new_width}")
+        
         # Use Lanczos for high-quality upsampling
         upsampled = cv2.resize(
             image_array,
@@ -256,6 +281,9 @@ def fallback_upsampling(image_array):
         logger.info(f"Fallback upsampling complete: {image_array.shape} -> {upsampled.shape}")
         return upsampled
         
+    except MemoryError as e:
+        logger.error(f"Out of memory during upsampling: {e}")
+        raise RuntimeError("Image too large for processing. Try a smaller image.")
     except Exception as e:
         logger.error(f"Fallback upsampling error: {e}")
         raise
@@ -455,4 +483,13 @@ if __name__ == '__main__':
     logger.info("Starting Flask server on http://127.0.0.1:5000")
     logger.info("="*60)
     
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    # Production-safe settings
+    # debug=False prevents reloader crashes
+    # threaded=True allows multiple requests
+    app.run(
+        debug=False,  # Disable debug mode to prevent crashes
+        host='127.0.0.1',
+        port=5000,
+        threaded=True,  # Allow multiple requests
+        use_reloader=False  # Disable auto-reloader
+    )
